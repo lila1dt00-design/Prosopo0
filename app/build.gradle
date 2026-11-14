@@ -9,12 +9,14 @@ android {
 
     defaultConfig {
         applicationId 'com.facetools.app'
-        minSdk 24
+        minSdk 21
         targetSdk 34
-        versionCode 2
+        versionCode 3
         versionName '2.0'
 
         ndk {
+            // 64-bit and 32-bit phones plus the emulator. Drop 'armeabi-v7a' if a
+            // dependency reports it is unavailable for that ABI.
             abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
         }
     }
@@ -39,6 +41,7 @@ chaquopy {
     defaultConfig {
         version '3.11'
         pip {
+            // scipy is NOT installed: it has no wheel for 32-bit phones. face_tools/_spfallback.py replaces it.
             install 'numpy'
             install 'pillow'
         }
