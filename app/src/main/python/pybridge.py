@@ -15,7 +15,19 @@ import traceback
 _G = {"__name__": "__pyrun__"}
 
 
+def _patch_shutil():
+    # Android: shutil.copystat() tries to copy SELinux xattrs (security.selinux) and fails with
+    # [Errno 13] Permission denied inside the app sandbox, which breaks copytree/copy2.
+    try:
+        import shutil
+        if hasattr(shutil, "_copyxattr"):
+            shutil._copyxattr = lambda *a, **k: None
+    except Exception:
+        pass
+
+
 def setup(root):
+    _patch_shutil()
     scripts = os.path.join(root, "scripts")
     if scripts not in sys.path:
         sys.path.insert(0, scripts)
