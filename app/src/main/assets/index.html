@@ -462,7 +462,7 @@ function go(){
   for(var i=0;i<ids.length;i++){var e=document.getElementById(ids[i]);if(!e){fail();return}txt+=e.textContent}
   crypto.subtle.digest("SHA-256",new TextEncoder().encode(txt)).then(function(buf){
     var hh=Array.prototype.map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,"0")}).join("");
-    if(hh!=="fc53035b7b3d066a8c5a5990b685565575fb242ccdca6eff9b053ceb389487a7")fail()
+    if(hh!=="5aa46abfc4da0137fb567a9b1cc32f9f64ff482c71e8fbc94b404aca5f8918c4")fail()
   }).catch(function(){});
 }
 function fail(){
